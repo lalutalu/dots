@@ -31,8 +31,7 @@ set nowritebackup                       " This is recommended by coc
 set updatetime=300                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set formatoptions-=cro                  " Stop newline continution of comments
-set clipboard=unnamedplus               " Copy paste between vim and everything else
-
+set clipboard^=unnamed,unnamedplus
 call plug#begin('C:/Users/School/AppData/Local/nvim/plugged') 
 
 Plug 'neoclide/coc.nvim'
@@ -42,6 +41,7 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'navarasu/onedark.nvim'
@@ -61,8 +61,8 @@ call plug#end()
 let mapleader=" "
 nnoremap <Leader>f <Esc>:NERDTreeToggle<CR>
 nmap <C-f> :NERDTreeToggle<CR>
-nmap <C-t> :TagbarToggle<CR>
-nmap <C-s> :TerminalSplit powershell<CR>
+nmap <A-t> :TagbarToggle<CR>
+nmap <A-s> :TerminalSplit powershell<CR>
 
 let g:airline_theme='base16'
 let g:airline_powerline_fonts = 1
@@ -70,6 +70,12 @@ let g:coc_node_path = 'C:\Program Files\nodejs\node.exe'
 
 colorscheme nightfox
 
+nnoremap <C-p> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
 " use alt+hjkl to move between split/vsplit panels
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
