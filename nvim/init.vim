@@ -32,6 +32,7 @@ set updatetime=300                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set formatoptions-=cro                  " Stop newline continution of comments
 set clipboard+=unnamedplus
+
 call plug#begin('C:/Users/Work/AppData/Local/nvim/plugged') 
 
 Plug 'neoclide/coc.nvim'
@@ -52,6 +53,10 @@ Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple c
 
 call plug#end()
 
+nnoremap <C-q> :q!<CR>
+nnoremap <S-Tab> gT
+nnoremap <Tab> gt
+nnoremap <silent> <S-t> :tabnew<CR>
 " Keybindings
 let mapleader=" "
 nmap <C-b> :NERDTreeToggle<CR>
@@ -81,12 +86,12 @@ nnoremap <A-l> <C-w>l
 
 " VIMWIKI 
 let wiki_1 = {}
-let wiki_1.path = '~/notes/personal/'
+let wiki_1.path = '~/notes/school/'
 let wiki_1.syntax = 'markdown'
 let wiki_1.ext = '.md'
 
 let wiki_2 = {}
-let wiki_2.path = '~/notes/school/'
+let wiki_2.path = '~/notes/personal/'
 let wiki_2.syntax = 'markdown'
 let wiki_2.ext = '.md'
 
