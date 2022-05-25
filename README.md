@@ -1,2 +1,2 @@
 # dots
-dot files for linux/wsl
+Dot Files for Linux, WSL, and some Windows Programs...
