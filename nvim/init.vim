@@ -24,7 +24,7 @@ set laststatus=0                        " Always display the status line
 set number                              " Line numbers
 set relativenumber
 set background=dark                     " tell vim what the background color looks like
-" set showtabline=2                       " Always show tabs
+set showtabline=2                       " Always show tabs
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
 set nobackup                            " This is recommended by coc
 set nowritebackup                       " This is recommended by coc
@@ -33,7 +33,7 @@ set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set formatoptions-=cro                  " Stop newline continution of comments
 set clipboard+=unnamedplus
 
-call plug#begin('C:/Users/Work/AppData/Local/nvim/plugged') 
+call plug#begin('C:/Users/Lukas/AppData/Local/nvim/plugged') 
 
 Plug 'neoclide/coc.nvim'
 Plug 'https://github.com/ap/vim-css-color'
@@ -45,12 +45,14 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'romgrk/barbar.nvim'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc:
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'mattn/emmet-vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
@@ -78,6 +80,7 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit'
   \}
 
+nmap <C-z> :Emmet 
 " use alt+hjkl to move between split/vsplit panels
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
@@ -89,7 +92,7 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 " emmet-vim change binding
-let g:user_emmet_leader_key='<C-Z>,'
+let g:user_emmet_leader_key='<C-z>,'
 " VIMWIKI 
 let wiki_1 = {}
 let wiki_1.path = '~/notes/school/'
@@ -103,3 +106,29 @@ let wiki_2.ext = '.md'
 
 let g:vimwiki_list = [wiki_1, wiki_2]
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" Code Completion with tab coc.nvim
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" TreeSitter Configuration to always add highlighting
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
